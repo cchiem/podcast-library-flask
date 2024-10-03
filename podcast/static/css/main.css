@@ -1,0 +1,699 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Poppins, sans-serif;
+    list-style-type: none;
+    font-weight: 500;
+    text-decoration: none;
+    color: black; /* Light text color for dark background */
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    padding-left: 200px;
+    background-color: #f8f9fa; /* Light background to match the image */
+}
+
+img {
+    width: 100px;
+    height: 100px;
+}
+
+/* Flash message styling */
+.flash-message-container {
+    position: fixed;
+    top: 10px;
+    left: 210px;
+    z-index: 1000;
+}
+
+.flash-messages {
+    display: flex;
+    flex-direction: column;
+}
+
+.flash-message {
+    background-color: #28a745; /* Green background */
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.5s ease-in-out;
+    opacity: 0;
+    animation: fadeInOut 1s forwards;
+}
+
+/* Error message style */
+.flash-message.error {
+    background-color: #dc3545; /* Red background for error */
+}
+
+/* Add animation to fade out the flash message */
+@keyframes fadeInOut {
+    0% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.sidebar {
+    height: 100vh;
+    width: 200px;
+    background-color: #1f1f1f; /* Dark background color for the sidebar */
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+.sidebar a {
+    display: flex; /* Use flexbox to align icon and text horizontally */
+    align-items: center;
+    text-decoration: none;
+    color: #e0e0e0;
+    font-size: 18px;
+    padding: 10px 5px;
+}
+
+.sidebar li img {
+    width: 24px; /* Adjust the size of the icon */
+    height: 24px;
+    margin-right: 10px; /* Add space between the icon and the text */
+}
+
+.sidebar li:hover a {
+    cursor: pointer;
+    background-color: #333; /* Slightly lighter background on hover */
+    border-radius: 5px;
+}
+
+.sidebar-items {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.nav-footer-list {
+    margin-top: auto;
+    padding-bottom: 20px;
+}
+
+.nav-footer-list a {
+    font-size: 14px;
+}
+
+.login-regis-btn {
+    background-color: #2f5370;
+}
+
+.login-regis-btn:hover {
+    background-color: #204060;
+}
+.login-regis-btn span {
+    color: white;
+    display: block;
+    padding-left: 2rem;
+}
+
+.catalogue-wrapper {
+    padding: 2rem;
+    width: 100%; /* Ensures it takes full space */
+}
+.catalogue-content {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff; /* White background for content area */
+    border-radius: 10px; /* Rounded corners for the content */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Light shadow */
+    padding: 2rem;
+    max-width: 100%;
+}
+
+.catalogue-content h1 {
+    padding: 1rem 0;
+}
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background-color: #f1f3f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.filter-dropdown,
+.search-input,
+.search-button {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
+.search-input {
+    flex-grow: 1;
+}
+
+.search-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+.podcast-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.podcast-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.podcast-card {
+    display: flex;
+    flex-direction: row;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+    gap: 20px; /* Added gap between elements */
+}
+
+.podcast-info {
+    display: flex;
+    gap: 20px;
+    flex: 1; /* Allows the podcast info to take up available space */
+}
+
+.podcast-card img {
+    border-radius: 5px;
+    width: 150px;
+    height: 150px;
+}
+
+.podcast-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.podcast-details h3 {
+    font-size: 18px;
+    color: #343a40;
+    margin-bottom: 10px;
+}
+
+.podcast-description {
+    display: flex;
+    padding: 1rem 0rem;
+    gap: 1rem;
+}
+
+.podcast-category {
+    background-color: #f1f1f1;
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    color: #007bff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+
+/* Separator line */
+.podcast-separator {
+    background-color: #dcdcdc;
+    width: 2px;
+    height: 200px;
+}
+
+/* Add to Playlist section */
+.podcast-add-to-playlist {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px; /* Prevent overlap by ensuring this section has enough space */
+}
+
+.added-to-playlist-button-d {
+    background-color: grey; /* Change this to your desired grey color */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: not-allowed; /* Indicates the button is disabled */
+    opacity: 0.6; /* Slightly faded appearance */
+}
+
+.added-to-playlist-button-d:hover {
+    background-color: grey; /* Keep the same color on hover */
+}
+
+.add-to-playlist-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-to-playlist-button:hover {
+    background-color: #0056b3;
+}
+
+.empty-playlist {
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.empty-playlist .question-icon {
+    margin: 2rem;
+    width: 30rem;
+    height: auto;
+}
+
+. .podcast-details p {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.podcast-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.podcast-actions button {
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.podcast-actions .add-list-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.podcast-actions .add-list-btn:hover {
+    background-color: #218838;
+}
+
+.podcast-actions .contact-btn {
+    background-color: #ffc107;
+    color: white;
+}
+
+.podcast-actions .contact-btn:hover {
+    background-color: #e0a800;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 2rem 0; /* Space below search */
+}
+
+.pagination a,
+.pagination span {
+    padding: 10px 15px;
+    border: 1px solid #dee2e6; /* Light border */
+    border-radius: 5px;
+    background-color: #ffffff; /* White background for each page */
+    color: #007bff; /* Blue text color for active and links */
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #007bff; /* Blue background on hover */
+    color: #ffffff; /* White text on hover */
+}
+
+.pagination .active {
+    background-color: #007bff; /* Active page background */
+    color: white; /* Active page text color */
+    pointer-events: none; /* Disable clicking on the active page */
+}
+
+.pagination .disabled {
+    color: #6c757d; /* Disabled text color */
+    pointer-events: none; /* Disable clicking */
+    background-color: #e9ecef; /* Disabled background color */
+}
+
+/*------------------*/
+/* General Styles */
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.homeContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+/* Main Content */
+.main-content {
+    width: 80%;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+/* Hero Section */
+.hero-section {
+    width: 100%;
+    padding: 80px 20px;
+    text-align: center;
+    background-color: #e0f7fa;
+    border-radius: 12px;
+    margin-bottom: 40px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.hero-section h1 {
+    font-size: 4rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.hero-section p {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+.rec-cta-button {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #00796b;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.rec-cta-button:hover {
+    background-color: #004d40;
+}
+
+/* Horizontal Scroll Section */
+.rec-horizontal-scroll {
+    overflow-x: auto;
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    padding-bottom: 10px;
+    scrollbar-width: none; /* Hide scrollbar in Firefox */
+}
+
+.rec-horizontal-scroll::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in Chrome/Safari */
+}
+
+.rec-scroll-content {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+/* Podcast Card */
+.rec-podcast-card {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 250px; /* Set fixed width */
+    min-width: 250px; /* Keep cards at a consistent size */
+    height: 300px; /* Set fixed height */
+    justify-content: center;
+}
+
+.rec-podcast-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.rec-img-wrapper {
+    padding: 2rem;
+    width: 100%;
+    height: 200px; /* Set height for image */
+    position: relative;
+}
+
+.rec-img-wrapper img {
+    border-radius: 0.5rem;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Keep image aspect ratio */
+}
+
+.rec-podcast-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding: 0 1rem;
+    text-align: center;
+}
+
+/*--------------------------------*/
+.podcastDescription-wrapper {
+    width: 100%; /* Full width of the container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 2rem 2rem 232px;
+}
+
+.podcastDescription-wrapper h1 {
+    font-size: 3rem;
+}
+.podcastDescription {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    border-radius: 1rem;
+}
+.podcastDescription-podcast-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+}
+.podcastDescription-podcast-card img {
+    width: 400px;
+    height: auto;
+    border-radius: 0.5rem;
+    margin: 2rem 0;
+}
+
+/* Table Styling */
+table {
+    width: 100%; /* Full width of the container */
+    border-collapse: collapse; /* Ensures borders don't double */
+    margin-bottom: 2rem;
+}
+
+table th,
+table td {
+    text-align: left;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #2f5370;
+    color: white;
+    font-weight: bold;
+}
+
+table td a {
+    color: #2f5370;
+    text-decoration: none;
+}
+
+table td a:hover {
+    text-decoration: underline;
+}
+/*-------------*/
+.login-form-content {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form-wrapper {
+    width: 400px;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.login-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.login-form-field {
+    margin-bottom: 20px;
+}
+
+.login-form-field label {
+    display: block;
+    text-align: left;
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.login-form-field input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+    transition: border-color 0.3s ease;
+}
+
+.form-field input:focus {
+    outline: none;
+    border-color: #2f5370;
+}
+
+.login-errors {
+    list-style-type: none;
+    color: #ff4d4d;
+    padding: 0;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+ul.errors li {
+    margin: 4px 0;
+}
+
+.login-submit button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #2f5370;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-submit button[type="submit"]:hover {
+    background-color: #204060;
+}
+
+.signup-redirect {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.signup-redirect a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.signup-redirect a:hover {
+    text-decoration: underline;
+}
+
+.playlist-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Centering the content horizontally */
+    width: 100%;
+}
+.playlist-content-welcome h1 {
+    text-align: center;
+}
+.playlist-content h1,
+.playlist-content h2,
+.playlist-content h3,
+.playlist-content p {
+    margin-top: 20px;
+}
+
+.playlist-content h1 {
+    color: #0073e6;
+    font-size: 3rem;
+}
+
+.playlist-content h2 {
+    margin-bottom: 10px;
+}
+
+.remove-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.remove-btn:hover {
+    background-color: #ff3333;
+}

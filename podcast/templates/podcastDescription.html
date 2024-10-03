@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Podcast Library</title>
+        <link rel="stylesheet" href="../static/css/main.css" />
+    </head>
+    <body class="podcastDescription-wrapper">
+        {% include 'navbar.html' %}
+        <div class="podcastDescription">
+            <div class="podcastDescription-podcast-card">
+                <div>
+                    <h1>{{ podcast.title }}</h1>
+                    <img
+                        src="{{ podcast.image }}"
+                        alt="{{ podcast.title }} Thumbnail"
+                    />
+                </div>
+            </div>
+
+            <div id="main">
+                <div>
+                    {% set categories = [] %} {% for category in
+                    podcast.categories %} {% set _ =
+                    categories.append(category.name) %} {% endfor %}
+
+                    <!-- Podcast Details in Table -->
+                    <table class="podcast-details">
+                        <tr>
+                            <td><i>Author:</i></td>
+                            <td>{{ podcast.author.name }}</td>
+                        </tr>
+                        <tr>
+                            <td><i>Language:</i></td>
+                            <td>{{ podcast.language }}</td>
+                        </tr>
+                        <tr>
+                            <td><i>About:</i></td>
+                            <td>{{ podcast.description }}</td>
+                        </tr>
+                        <tr>
+                            <td><i>Categories:</i></td>
+                            <td>{{ categories|join(" | ") }}</td>
+                        </tr>
+                        <tr>
+                            <td><i>Website:</i></td>
+                            <td>
+                                <a href="{{ podcast.website }}"
+                                    >{{ podcast.website }}</a
+                                >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><i>iTunes ID:</i></td>
+                            <td>{{ podcast.itunes_id }}</td>
+                        </tr>
+                        <tr>
+                            <td><i>Rating:</i></td>
+                            <td>{{ podcast.get_podcast_average_rating() if podcast.get_podcast_average_rating() != 0 else '-' }}  ({{ podcast.reviews | length }} Reviews)</td>
+                        </tr>
+                        <tr>
+                            <td><i>Leave a Review:</i></td>
+                            <td>
+                                {% if message %}
+                                <p style="color: red">{{ message }}</p>
+                                {% endif %}
+
+                                <form
+                                    method="POST"
+                                    action="{{ url_for('description_bp.leave_review_on_podcast', podcast_id=podcast.id) }}"
+                                >
+                                    {{ form.csrf_token }}
+                                    <div>
+                                        {{ form.review_text.label }}<br />
+                                        {{ form.review_text(size=50) }}<br />
+                                        {% for error in form.review_text.errors
+                                        %}
+                                        <span style="color: red"
+                                            >[{{ error }}]</span
+                                        >
+                                        {% endfor %}
+                                    </div>
+                                    <div>
+                                        {{ form.rating.label }}<br />
+                                        {{ form.rating(size=5) }}<br />
+                                        {% for error in form.rating.errors %}
+                                        <span style="color: red"
+                                            >[{{ error }}]</span
+                                        >
+                                        {% endfor %}
+                                    </div>
+                                    <div>{{ form.submit() }}</div>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <br />
+                    <h3>Episodes:</h3>
+                    <br />
+
+                    <!-- Episodes List in Table -->
+                    <table class="episode-list">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Play</th>
+                                <th>Release Date</th>
+                                <th>Length</th>
+                                <th>Add Episode to playlist</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for episode in episodes %}
+                            <tr>
+                                <td>{{ episode.title }}</td>
+                                <td>
+                                    {% autoescape false %} {{
+                                    episode.description | safe }} {%
+                                    endautoescape %}
+                                </td>
+                                <td>
+                                    <audio
+                                        controls
+                                        src="{{ episode.audio }}"
+                                    ></audio>
+                                </td>
+                                <td>{{ episode.pub_date.split(" ")[0] }}</td>
+                                <td>{{ episode.audio_length // 60 }} mins</td>
+                                <!-- Add to Playlist Button -->
+                                <td>
+                                    {% if username %}
+                                    <div class="podcast-add-to-playlist">
+                                        <form
+                                            method="POST"
+                                            action="{{ url_for('description_bp.add_to_playlist', podcast_id=podcast.id, episode_id=episode.id) }}"
+                                        >
+                                            {% if episode.id in
+                                            saved_episodes_by_id %}
+                                            <!-- Check if the episode is already in the playlist -->
+                                            <button
+                                                type="button"
+                                                class="added-to-playlist-button-d"
+                                                disabled
+                                            >
+                                                Added to Playlist
+                                            </button>
+                                            {% else %}
+                                            <button
+                                                type="submit"
+                                                class="add-to-playlist-button"
+                                            >
+                                                Add Episode to Playlist
+                                            </button>
+                                            {% endif %}
+                                        </form>
+                                    </div>
+                                    {% else %}
+                                    <p>Please log in to add episodes</p>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <br />
+                    <h3>Reviews:</h3>
+                    <br />
+
+                    <!-- Reviews List in Table -->
+                    <table class="review-table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Comment</th>
+                                <th>Rating</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for review in podcast.reviews %}
+                            <tr>
+                                <td>{{ review.owner.username }}</td>
+                                <td>
+                                    {% autoescape false %} {{
+                                    review.review_content | safe }} {%
+                                    endautoescape %}
+                                </td>
+                                <td>{{ review.rating }}/5</td>
+                                <td>{{ review.date.split(",")[0] }}</td>
+                                <td>{{ review.date.split(",")[1] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Flash messages -->
+        <div class="flash-message-container">
+            {% with messages = get_flashed_messages(with_categories=True) %} {%
+            if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %} {% endwith %}
+        </div>
+    </body>
+</html>

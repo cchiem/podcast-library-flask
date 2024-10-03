@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcast Library</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+</head>
+
+<body>
+{% include 'navbar.html' %}
+
+<!-- Flash messages -->
+<div class="flash-message-container">
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+</div>
+
+
+<div class="catalogue-wrapper">
+    <div class="catalogue-content">
+        <h1>Podcast Catalogue</h1>
+        <div id="container">
+            <form class="search-container" method="get" action="{{ url_for('catalogue_bp.catalogue') }}">
+                <select name="filter_by" class="filter-dropdown">
+                    <option value="title" {% if filter_by == 'title' %}selected{% endif %}>Title</option>
+                    <option value="category" {% if filter_by == 'category' %}selected{% endif %}>Category</option>
+                    <option value="author" {% if filter_by == 'author' %}selected{% endif %}>Author</option>
+                </select>
+                <input type="text" name="q" placeholder="Search Podcast..." value="{{ search_query }}" class="search-input">
+                <button type="submit" class="search-button">Search</button>
+            </form>
+        </div>
+
+        <!-- Pagination -->
+        {% include 'pagination.html' %}
+
+        <div class="podcast-grid">
+            {% for podcast in items_on_page %}
+            <div class="podcast-card">
+                <a class="podcast-info" href="{{ url_for('description_bp.description', podcast_id=podcast._id) }}">
+                    <div class="podcast-card-image">
+                        <img src="{{ podcast.image }}" alt="{{ podcast.title }} cover image">
+                        <h3>ID : {{ podcast.id }}</h3>
+                    </div>
+                    <div class="podcast-details">
+                        <h2>{{ podcast.title }}</h2>
+                        <h3>{{ podcast.author.name }}</h3>
+                        <p>{{ podcast.description }}</p>
+                        <div class="podcast-description">
+                            {% for category in podcast.categories %}
+                                <span class="podcast-category">{{ category.name }}</span>
+                            {% endfor %}
+                        </div>
+                        <h3>Episodes : {{ podcast.episodes | length }}</h3>
+                        <h3>Rating : {{ podcast.get_podcast_average_rating() if podcast.get_podcast_average_rating() != 0 else '-' }}  ({{ podcast.reviews | length }} Reviews)</h3>
+                    </div>
+                </a>
+
+                <!-- Grey Line Separator -->
+                <div class="podcast-separator"></div>
+
+                <!-- Add to Playlist Button -->
+                {% if user %}
+                <div class="podcast-add-to-playlist">
+                    <form method="POST" action="{{ url_for('catalogue_bp.add_to_playlist', podcast_id=podcast.id) }}">
+                        <button type="submit" class="add-to-playlist-button">Add All Episodes to Playlist</button>
+                    </form>
+                </div>
+                {% else %}
+                <p>Please log in to add podcasts to your playlist.</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Pagination -->
+        {% include 'pagination.html' %}
+    </div>
+</div>
+</body>
+</html>

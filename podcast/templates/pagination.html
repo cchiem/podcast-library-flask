@@ -1,0 +1,20 @@
+<div class="pagination">
+    {% if page > 1 %}
+    <a
+        href="?q={{ search_query }}&filter_by={{ filter_by }}&page={{ page - 1 }}"
+        class="pagination-link"
+        >Previous</a
+    >
+    {% endif %}
+    <span>Page {{ page }} of {{ total_pages }}</span>
+    {% if page < total_pages %}
+    <a
+        href="?q={{ search_query }}&filter_by={{ filter_by }}&page={{ page + 1 }}"
+        class="pagination-link"
+    >Next</a>
+   
+    {% endif %}
+</div>
+
+
+

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Podcast Library</title>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/main.css') }}"
+        />
+    </head>
+    <body class="playlist-content">
+        {% include 'navbar.html' %}
+
+        <h1 class="playlist-content-welcome">Welcome, {{ username }}!</h1>
+
+        {% if playlist is not none and playlist.playlist_length > 0 %}
+        <h2>Your Playlist:</h2>
+        {% include 'pagination.html' %}
+        <table class="playlist-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Podcast</th>
+                    <th>Play</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for episode in items_on_page %}
+                <tr>
+                    <td>{{ playlist.playlist.index(episode) + 1 }}</td>
+                    <td>{{ episode.title }}</td>
+                    <td>{{ episode.podcast.title }}</td>
+                    <td><audio controls src="{{ episode.audio }}"></audio></td>
+                    <td>
+                        <!-- Remove Button -->
+                        <form
+                            method="POST"
+                            action="{{ url_for('playlist_bp.remove_episode_from_user_playlist', episode_id=episode.id) }}"
+                        >
+                            <button type="submit" class="remove-btn">
+                                Remove
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <!-- Pagination -->
+        {% include 'pagination.html' %} {% else %}
+        <div class="empty-playlist">
+            <p>Your playlist is empty.</p>
+            <img
+                class="question-icon"
+                src="/static/icons/question-mark-icon.png"
+            />
+        </div>
+        {% endif %}
+
+        <!-- Flash messages -->
+        <div class="flash-message-container">
+            {% with messages = get_flashed_messages(with_categories=True) %} {%
+            if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %} {% endwith %}
+        </div>
+    </body>
+</html>
