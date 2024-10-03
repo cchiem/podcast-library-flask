@@ -9,7 +9,8 @@ from podcast.adapters.memory_repository import MemoryRepository, populate
 # TODO: Access to the podcast should be implemented via the repository pattern and using blueprints, so this can not
 #  stay here!
 from podcast.domainmodel.model import Podcast, Author, Episode
-
+from flask import Flask
+from flask_cors import CORS
 
 def create_app(test_config=None):
     """Construct the core application."""
@@ -52,6 +53,6 @@ def create_app(test_config=None):
         from .authentication import authentication
         app.register_blueprint(authentication.authentication_blueprint)
 
-    return app
+    return CORS(app)
 
 
