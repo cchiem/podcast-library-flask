@@ -99,6 +99,20 @@ class MemoryRepository(AbstractRepository, ABC):
             if ep.id == episode_id:
                 return ep
 
+    def get_review_by_id(self, podcast: Podcast, review_id: int):
+        for review in podcast.reviews:
+            if review.id == review_id:
+                return review
+
+
+    def remove_review(self, user: User, podcast_id: int, review_id:int):
+        podcast = self.get_podcast_by_id(podcast_id)
+        review = self.get_review_by_id(podcast, review_id)
+        podcast.remove_review(review)
+
+
+
+
 
 
 

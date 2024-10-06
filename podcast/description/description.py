@@ -101,3 +101,19 @@ def add_to_playlist(podcast_id, episode_id):
 
     # Redirect back to the podcast description page
     return redirect(url_for('description_bp.description', podcast_id=podcast_id))
+
+
+@description_blueprint.route('/description/remove/<int:podcast_id>/<int:review_id>', methods=['POST'])
+@login_required
+def remove_review(podcast_id, review_id):
+    # Check if the user is logged in
+    if 'username' not in session:
+        return redirect(url_for('authentication_bp.login'))
+
+    username = session['username']
+    user = services.get_user(repo.repo_instance, username)
+
+    # Call a service function to remove the podcast from the user's playlist
+    services.remove_review(repo.repo_instance, user, podcast_id, review_id)
+    flash("Review removed")
+    return redirect(url_for('description_bp.description', podcast_id=podcast_id))

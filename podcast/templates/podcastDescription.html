@@ -179,6 +179,7 @@
                                 <th>Rating</th>
                                 <th>Date</th>
                                 <th>Time</th>
+                                <th>Remove</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -193,6 +194,17 @@
                                 <td>{{ review.rating }}/5</td>
                                 <td>{{ review.date.split(",")[0] }}</td>
                                 <td>{{ review.date.split(",")[1] }}</td>
+                                <td>
+                            <!-- Remove Button -->
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for('description_bp.remove_review',podcast_id=podcast.id, review_id=review.id )}}"
+                                    >
+                                        <button type="submit" class="remove-btn">
+                                            Remove
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>

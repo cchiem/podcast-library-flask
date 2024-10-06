@@ -1,5 +1,5 @@
 from podcast.adapters.repository import AbstractRepository
-from podcast.domainmodel.model import Podcast, Review
+from podcast.domainmodel.model import Podcast, Review, User
 
 
 class UserReviewAddedException(Exception):
@@ -28,3 +28,7 @@ def get_user(repo: AbstractRepository, username: str):
 
 def get_saved_episodes_for_user(repo: AbstractRepository, username: str):
     return repo.get_saved_episodes_for_user(username)
+
+
+def remove_review(repo: AbstractRepository, user: User, podcast_id: int, review_id: int):
+    return repo.remove_review(user, podcast_id, review_id)

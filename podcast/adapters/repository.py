@@ -88,3 +88,7 @@ class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def get_episode_by_id(self, episode_id: int):
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def remove_review(self, user: User, podcast_id: int, review_id):
+        raise NotImplementedError
