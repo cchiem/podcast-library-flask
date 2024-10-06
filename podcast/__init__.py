@@ -1,5 +1,12 @@
 """Initialize Flask app."""
+from flask_cors import CORS   
 from pathlib import Path
+<<<<<<< Updated upstream
+=======
+from flask import Flask
+
+
+>>>>>>> Stashed changes
 from flask import Flask, render_template, request
 import podcast.adapters.repository as repo
 from podcast.adapters.datareader.csvdatareader import CSVDataReader
@@ -8,6 +15,8 @@ from podcast.adapters.memory_repository import MemoryRepository, populate
 # TODO: Access to the podcast should be implemented via the repository pattern and using blueprints, so this can not
 #  stay here!
 from podcast.domainmodel.model import Podcast, Author, Episode
+
+
 
 
 def create_app(test_config=None):
