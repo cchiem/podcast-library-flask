@@ -1,12 +1,10 @@
 """Initialize Flask app."""
 from pathlib import Path
-from flask import Flask
-
-
 from flask import Flask, render_template, request
 import podcast.adapters.repository as repo
 from podcast.adapters.datareader.csvdatareader import CSVDataReader
 from podcast.adapters.memory_repository import MemoryRepository, populate
+from flask_cors import CORS
 
 # TODO: Access to the podcast should be implemented via the repository pattern and using blueprints, so this can not
 #  stay here!
@@ -53,6 +51,6 @@ def create_app(test_config=None):
         from .authentication import authentication
         app.register_blueprint(authentication.authentication_blueprint)
 
-    return (app)
+    return CORS(app)
 
 
