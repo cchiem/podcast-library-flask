@@ -58,7 +58,7 @@ class CSVDataReader:
                     podcast.author = author
 
                     podcast.description = row["description"]
-                    podcast.image = "podcast/adapters/data/images/"+ author.name + ".jpg"
+                    podcast.image = "/static/images/"+ author.name + ".jpg"
                     podcast.language = row["language"]
                     podcast.website = row["website"]
                     podcast.itunes_id = row["itunes_id"]

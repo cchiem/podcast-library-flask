@@ -1,12 +1,5 @@
 """Initialize Flask app."""
-from flask_cors import CORS   
 from pathlib import Path
-<<<<<<< Updated upstream
-=======
-from flask import Flask
-
-
->>>>>>> Stashed changes
 from flask import Flask, render_template, request
 import podcast.adapters.repository as repo
 from podcast.adapters.datareader.csvdatareader import CSVDataReader
