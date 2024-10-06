@@ -1,5 +1,7 @@
 # Podcast Library
-<img width="1709" alt="image" src="https://github.com/user-attachments/assets/c25c49cf-3eb3-4325-a5ef-335fcfff76ea">
+
+![alt text](image.png)
+![alt text](image-1.png)
 
 ## Description
 
