@@ -1,7 +1,6 @@
 """Initialize Flask app."""
 from pathlib import Path
 from flask import Flask
-from flask_cors import CORS
 
 
 from flask import Flask, render_template, request
@@ -54,6 +53,6 @@ def create_app(test_config=None):
         from .authentication import authentication
         app.register_blueprint(authentication.authentication_blueprint)
 
-    return CORS(app)
+    return (app)
 
 
